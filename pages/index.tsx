@@ -1,14 +1,14 @@
-import Head from 'next/head'
+import Head from "next/head";
 import {
   Container,
   Main,
   Title,
   Description,
   CodeTag,
-} from '../components/sharedstyles'
-import Cards from '../components/cards'
+} from "../components/sharedstyles";
+import Cards from "../components/cards";
 
-export default function Home() {
+export default function Home({ users }) {
   return (
     <Container>
       <Head>
@@ -27,7 +27,29 @@ export default function Home() {
         </Description>
 
         <Cards />
+
+        <pre>{JSON.stringify(users, null, 2)}</pre>
       </Main>
     </Container>
-  )
+  );
+}
+
+async function getUsers() {
+  const res = await fetch(`http://localhost:1337/api/users`);
+  const data = await res.json();
+  return data;
+}
+
+// This function gets called at build time
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts
+  const users = await getUsers();
+
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      users,
+    },
+  };
 }

@@ -1,0 +1,40 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+
+import { Foo } from "./Foo";
+
+<Meta title="Atomic Design System/Foo" component={Foo} />
+
+# Foo
+
+`Foo` 组件
+
+[View source](https://github.com/fancn21th/0_223_Typescript_With_React/blob/main/src/components/AddTodo/AddTodo.tsx)
+
+## Imports
+
+```js
+import { Foo } from '@components/Foo/Foo';
+```
+## Usage
+
+<Canvas withSource="open">
+  <Story
+    name="base"
+    parameters={{
+      docs: {
+        source: {
+          code: '<Foo>This is a Foo</Foo>',
+        },
+      },
+    }}
+  >
+    <Foo>
+      This is a Foo
+    </Foo>
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable of={Foo} />
+

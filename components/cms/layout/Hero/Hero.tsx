@@ -10,6 +10,7 @@ const HeroImage = styled.img`
 const Hero = ({ url, alt }) => {
   return (
     <>
+      <h2>Hero</h2>
       <HeroImage src={getStrapiMedia(url)} alt={alt} />
     </>
   );

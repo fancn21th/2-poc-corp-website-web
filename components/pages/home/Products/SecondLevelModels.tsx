@@ -22,15 +22,24 @@ const SliderItem = styled.li<TabItemProps>`
   cursor: pointer;
 `;
 
-const SecondLevelModels = ({}) => {
+const SecondLevelModels = ({ models, activated, onModelChange }) => {
+  const activatedModel = activated || models[0];
   return (
     <Slider>
+      {/* pre */}
       <SliderItem>&lt;</SliderItem>
-      <SliderItem active={true}>A3</SliderItem>
-      <SliderItem>A4</SliderItem>
-      <SliderItem>A5</SliderItem>
-      <SliderItem>A6</SliderItem>
-      <SliderItem>A7</SliderItem>
+      {models.map((model) => (
+        <SliderItem
+          active={activatedModel === model}
+          key={model}
+          onClick={() => {
+            onModelChange(model);
+          }}
+        >
+          {model}
+        </SliderItem>
+      ))}
+      {/* next */}
       <SliderItem>&gt;</SliderItem>
     </Slider>
   );

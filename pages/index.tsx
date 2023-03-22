@@ -6,7 +6,13 @@ import FeaturedProductPreviews from "components/cms/layout/FeaturedProductPrevie
 import Products from "components/pages/home/Products";
 import { getStrapiURL, getStrapiMedia } from "utils";
 
-export default function Home({ logoImgUrl, heroImgUrl, banner, debugInfo }) {
+export default function Home({
+  logoImgUrl,
+  heroImgUrl,
+  banner,
+  debugInfo,
+  hierarchy,
+}) {
   return (
     <>
       <Head>
@@ -21,9 +27,9 @@ export default function Home({ logoImgUrl, heroImgUrl, banner, debugInfo }) {
         bannerTitle={banner.title}
         bannerLink={banner.link}
       />
-      <Products />
       {/* debug */}
       <pre>{JSON.stringify(debugInfo, null, 2)}</pre>
+      <Products models={hierarchy} />
       <FeaturedProductPreviews />
     </>
   );
@@ -51,6 +57,24 @@ export async function getStaticProps(context) {
   const logoImgUrl = getStrapiMedia(delve(logo, "data.attributes.url"));
 
   // Models
+  const vehicleCollection = delve(models, "data")
+    .map((model) => delve(model, "attributes.vehicles.data"))
+    .flat()
+    .map((vehicle) => ({
+      name: delve(vehicle, "attributes.name"),
+      photoUrl: getStrapiMedia(
+        delve(vehicle, "attributes.photo.data.attributes.url")
+      ),
+      model: delve(vehicle, "attributes.model.data.attributes.name"),
+    }));
+
+  const hierarchy = vehicleCollection.reduce((pre, cur) => {
+    if (!pre[cur.model]) {
+      pre[cur.model] = [];
+    }
+    pre[cur.model].push(cur);
+    return pre;
+  }, {});
 
   // BodyStyles
 
@@ -60,6 +84,6 @@ export async function getStaticProps(context) {
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return {
-    props: { logoImgUrl, heroImgUrl, debugInfo: models, banner },
+    props: { logoImgUrl, heroImgUrl, debugInfo: hierarchy, banner, hierarchy },
   };
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import FirstLevel from "./FirstLevelModels";
 import SecondLevel from "./SecondLevelModels";
@@ -12,17 +12,29 @@ const ModelsWrapper = styled.div`
   width: calc(100% - 280px);
 `;
 
-const Models = ({}) => {
+const Models = ({ models }) => {
+  const defaultModel = Object.keys(models)[0];
+
+  const [secondLevelModel, setSecondLevelModel] = useState(defaultModel);
+  const [vehicles, setVehicles] = useState(models[defaultModel]);
+
+  const onModelChange = (model) => {
+    setSecondLevelModel(model);
+    setVehicles(models[model]);
+  };
+
   return (
     <ModelsWrapper>
       <FirstLevel
         url={`http://localhost:1337/uploads/model_a_18d92e7fa6.png`}
         index={1}
       />
-      <SecondLevel />
-      <Vehicles
-        url={`http://localhost:1337/uploads/a3_limousine_df130d3bde.png`}
+      <SecondLevel
+        models={Object.keys(models)}
+        activated={secondLevelModel}
+        onModelChange={onModelChange}
       />
+      <Vehicles vehicles={vehicles} />
     </ModelsWrapper>
   );
 };

@@ -8,11 +8,11 @@ const ProductsWrapper = styled.div`
   margin-top: 72px;
 `;
 
-const Products = ({}) => {
+const Products = ({ models }) => {
   return (
     <ProductsWrapper>
       <Tabs />
-      <Models />
+      <Models models={models} />
     </ProductsWrapper>
   );
 };

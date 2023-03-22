@@ -56,27 +56,20 @@ const MoreActions = styled.div`
   }
 `;
 
-const Vehicles = ({ url }) => {
+const Vehicles = ({ vehicles }) => {
   return (
     <VehiclesWrapper>
-      <VehicleItem>
-        <h3>A3 Limousine</h3>
-        <ActivatedVehicleImage src={url} />
-        <VehicleCTA>查看车型信息</VehicleCTA>
-        <MoreActions>
-          <a>查看销商</a>
-          <a>预约试驾</a>
-        </MoreActions>
-      </VehicleItem>
-      <VehicleItem>
-        <h3>A3 Limousine</h3>
-        <ActivatedVehicleImage src={url} />
-        <VehicleCTA>查看车型信息</VehicleCTA>
-        <MoreActions>
-          <a>查看销商</a>
-          <a>预约试驾</a>
-        </MoreActions>
-      </VehicleItem>
+      {vehicles.map(({ name, photoUrl }) => (
+        <VehicleItem key={name}>
+          <h3>{name}</h3>
+          <ActivatedVehicleImage src={photoUrl} />
+          <VehicleCTA>查看车型信息</VehicleCTA>
+          <MoreActions>
+            <a>查看销商</a>
+            <a>预约试驾</a>
+          </MoreActions>
+        </VehicleItem>
+      ))}
     </VehiclesWrapper>
   );
 };

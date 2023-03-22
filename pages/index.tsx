@@ -1,18 +1,9 @@
 import Head from "next/head";
 import delve from "dlv";
-import Hero from "../components/pages/home/Hero";
+import Hero from "components/cms/layout/Hero";
+import { getStrapiURL } from "utils";
 
-export function getStrapiURL(path) {
-  return `${
-    process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337"
-  }/api${path}`;
-}
-
-export default function Home({ homePage }) {
-  const hero = delve(homePage, "data.attributes.hero");
-  const previews = delve(homePage, "data.attributes.previews");
-  const heroImgUrl = delve(hero, "photo.data.attributes.formats.large.url");
-
+export default function Home({ heroImgUrl, hero, previews }) {
   return (
     <>
       <Head>
@@ -30,7 +21,6 @@ export default function Home({ homePage }) {
 // This function gets called at build time
 export async function getStaticProps(context) {
   // Call an external API endpoint to get homepage
-
   const resHomePage = await fetch(
     getStrapiURL(
       `/home-paeg?populate[hero][populate]=*&populate[previews][populate]=*,product.*,product.photo`
@@ -38,11 +28,17 @@ export async function getStaticProps(context) {
   );
   const homePage = await resHomePage.json();
 
+  const hero = delve(homePage, "data.attributes.hero");
+  const previews = delve(homePage, "data.attributes.previews");
+  const heroImgUrl = delve(hero, "photo.data.attributes.url");
+
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return {
     props: {
-      homePage,
+      hero,
+      previews,
+      heroImgUrl,
     },
   };
 }

@@ -6,7 +6,7 @@ import FeaturedProductPreviews from "components/cms/layout/FeaturedProductPrevie
 import Products from "components/pages/home/Products";
 import { getStrapiURL, getStrapiMedia } from "utils";
 
-export default function Home({ logoImgUrl, heroImgUrl }) {
+export default function Home({ logoImgUrl, heroImgUrl, banner, debugInfo }) {
   return (
     <>
       <Head>
@@ -15,9 +15,14 @@ export default function Home({ logoImgUrl, heroImgUrl }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Appbar url={logoImgUrl} />
-      <Hero url={heroImgUrl} alt={"Hero Image"} />
+      <Hero
+        url={heroImgUrl}
+        alt={"Hero Image"}
+        bannerTitle={banner.title}
+        bannerLink={banner.link}
+      />
       {/* debug */}
-      <pre>{JSON.stringify(logoImgUrl, null, 2)}</pre>
+      <pre>{JSON.stringify(debugInfo, null, 2)}</pre>
       <Products />
       <FeaturedProductPreviews />
     </>
@@ -35,6 +40,7 @@ export async function getStaticProps(context) {
 
   const hero = delve(homePage, "data.attributes.hero");
   const heroImgUrl = getStrapiMedia(delve(hero, "photo.data.attributes.url"));
+  const banner = delve(hero, "banner");
   const logo = delve(homePage, "data.attributes.logo");
   const logoImgUrl = getStrapiMedia(delve(logo, "data.attributes.url"));
   const previews = delve(homePage, "data.attributes.previews");
@@ -42,6 +48,6 @@ export async function getStaticProps(context) {
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return {
-    props: { logoImgUrl, heroImgUrl },
+    props: { logoImgUrl, heroImgUrl, debugInfo: banner, banner },
   };
 }

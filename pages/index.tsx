@@ -21,9 +21,9 @@ export default function Home({ logoImgUrl, heroImgUrl, banner, debugInfo }) {
         bannerTitle={banner.title}
         bannerLink={banner.link}
       />
+      <Products />
       {/* debug */}
       <pre>{JSON.stringify(debugInfo, null, 2)}</pre>
-      <Products />
       <FeaturedProductPreviews />
     </>
   );

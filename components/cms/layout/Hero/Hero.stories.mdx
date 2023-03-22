@@ -1,0 +1,39 @@
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
+
+import Hero from "./Hero";
+
+<Meta title="Atomic Design System/Hero" component={Hero} />
+
+# Hero
+
+`Hero` 组件
+
+## Imports
+
+```js
+import Hero from "components/cms/layout/Hero";
+```
+
+## Usage
+
+<Canvas withSource="open">
+  <Story
+    name="base"
+    parameters={{
+      docs: {
+        source: {
+          code: "<Hero />",
+        },
+      },
+    }}
+  >
+    <Hero
+      url={`http://localhost:1337/uploads/pc_banner_1920x1000_da63e34796.jpg`}
+      alt={"pc banner"}
+    />
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable of={Hero} />

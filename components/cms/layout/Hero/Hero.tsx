@@ -7,10 +7,10 @@ const HeroImage = styled.img`
   background: url(${(props) => props.src});
 `;
 
-const Hero = ({ url }) => {
+const Hero = ({ url, alt }) => {
   return (
     <>
-      <HeroImage src={getStrapiMedia(url)} />
+      <HeroImage src={getStrapiMedia(url)} alt={alt} />
     </>
   );
 };

@@ -35,6 +35,13 @@ const Appbar = ({ url }) => {
       <Navbar>
         <NavbarItem>奥迪车型</NavbarItem>
         <NavbarItem>奥迪纯电</NavbarItem>
+        <NavbarItem>购车工具</NavbarItem>
+        <NavbarItem>售后服务</NavbarItem>
+        <NavbarItem>创新科技</NavbarItem>
+        <NavbarItem>奥迪品牌</NavbarItem>
+        <NavbarItem>个性化定制</NavbarItem>
+        <NavbarItem>官方认证二手车</NavbarItem>
+        <NavbarItem>RS</NavbarItem>
       </Navbar>
     </AppbarWrapper>
   );

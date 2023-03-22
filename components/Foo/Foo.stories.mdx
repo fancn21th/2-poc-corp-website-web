@@ -1,6 +1,6 @@
-import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
-import { Foo } from "./Foo";
+import Foo from "./Foo";
 
 <Meta title="Atomic Design System/Foo" component={Foo} />
 
@@ -8,13 +8,12 @@ import { Foo } from "./Foo";
 
 `Foo` 组件
 
-[View source](https://github.com/fancn21th/0_223_Typescript_With_React/blob/main/src/components/AddTodo/AddTodo.tsx)
-
 ## Imports
 
 ```js
-import { Foo } from '@components/Foo/Foo';
+import Foo from "components/Foo";
 ```
+
 ## Usage
 
 <Canvas withSource="open">
@@ -23,18 +22,15 @@ import { Foo } from '@components/Foo/Foo';
     parameters={{
       docs: {
         source: {
-          code: '<Foo>This is a Foo</Foo>',
+          code: "<Foo>This is a Foo</Foo>",
         },
       },
     }}
   >
-    <Foo>
-      This is a Foo
-    </Foo>
+    <Foo>This is a Foo</Foo>
   </Story>
 </Canvas>
 
 ## Props
 
 <ArgsTable of={Foo} />
-

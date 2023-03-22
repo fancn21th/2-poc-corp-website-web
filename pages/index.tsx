@@ -33,21 +33,33 @@ export default function Home({ logoImgUrl, heroImgUrl, banner, debugInfo }) {
 export async function getStaticProps(context) {
   // Call an external API endpoint to get homepage
 
-  const populateParam = `populate[hero][populate]=*&populate[previews][populate]=*,product.*,product.photo&populate=logo`;
+  const populateHomePageParam = `populate[hero][populate]=*&populate[previews][populate]=*,product.*,product.photo&populate=logo`;
+  const populateModelsParam = `populate[vehicles][populate]=*&populate=photo`;
 
-  const resHomePage = await fetch(getStrapiURL(`/home-paeg?${populateParam}`));
+  const resHomePage = await fetch(
+    getStrapiURL(`/home-paeg?${populateHomePageParam}`)
+  );
   const homePage = await resHomePage.json();
+  const resModels = await fetch(getStrapiURL(`/models?${populateModelsParam}`));
+  const models = await resModels.json();
 
+  // Hero
   const hero = delve(homePage, "data.attributes.hero");
   const heroImgUrl = getStrapiMedia(delve(hero, "photo.data.attributes.url"));
   const banner = delve(hero, "banner");
   const logo = delve(homePage, "data.attributes.logo");
   const logoImgUrl = getStrapiMedia(delve(logo, "data.attributes.url"));
+
+  // Models
+
+  // BodyStyles
+
+  // Previews
   const previews = delve(homePage, "data.attributes.previews");
 
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return {
-    props: { logoImgUrl, heroImgUrl, debugInfo: banner, banner },
+    props: { logoImgUrl, heroImgUrl, debugInfo: models, banner },
   };
 }

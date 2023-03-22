@@ -5,7 +5,15 @@ interface TabItemProps {
   active?: boolean;
 }
 
-const TabsWrapper = styled.ul`
+const TabsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 280px;
+`;
+
+const TabList = styled.ul`
   display: inline-block;
   list-style-type: none;
   margin:
@@ -19,13 +27,17 @@ const TabItem = styled.li<TabItemProps>`
   height: 110px;
   margin-bottom: 80px;
   cursor: pointer;
+  text-align: center;
+  line-height: 110px;
 `;
 
 const Tabs = ({}) => {
   return (
     <TabsWrapper>
-      <TabItem active={true}>车型</TabItem>
-      <TabItem>车辆类型</TabItem>
+      <TabList>
+        <TabItem active={true}>车型</TabItem>
+        <TabItem>车辆类型</TabItem>
+      </TabList>
     </TabsWrapper>
   );
 };

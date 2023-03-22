@@ -4,7 +4,13 @@ import FirstLevel from "./FirstLevelModels";
 import SecondLevel from "./SecondLevelModels";
 import Vehicles from "./Vehicles";
 
-const ModelsWrapper = styled.div``;
+const ModelsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: calc(100% - 280px);
+`;
 
 const Models = ({}) => {
   return (
@@ -14,7 +20,9 @@ const Models = ({}) => {
         index={1}
       />
       <SecondLevel />
-      <Vehicles />
+      <Vehicles
+        url={`http://localhost:1337/uploads/a3_limousine_df130d3bde.png`}
+      />
     </ModelsWrapper>
   );
 };

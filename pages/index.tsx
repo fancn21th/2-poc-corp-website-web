@@ -11,6 +11,7 @@ export default function Home({
   heroImgUrl,
   banner,
   debugInfo,
+  global,
   hierarchy,
   seo,
 }) {
@@ -33,7 +34,7 @@ export default function Home({
         bannerLink={banner.link}
       />
       {/* debug */}
-      {/* <pre>{JSON.stringify(debugInfo, null, 2)}</pre> */}
+      <pre>{JSON.stringify(global, null, 2)}</pre>
       <Products models={hierarchy} />
       <FeaturedProductPreviews />
     </>
@@ -42,29 +43,35 @@ export default function Home({
 
 // This function gets called at build time
 export async function getStaticProps(context) {
-  // Call an external API endpoint to get homepage
+  // Global Model
+  // TODO: move to global event instead
+  const populateGlobalParam = `populate[logo][populate]=*`;
+  const resGlobal = await fetch(getStrapiURL(`/global?${populateGlobalParam}`));
+  const global = await resGlobal.json();
+  const logoImgUrl = getStrapiMedia(
+    delve(global, "data.attributes.logo.data.attributes.url")
+  );
 
-  const populateHomePageParam = `populate[hero][populate]=*&populate[previews][populate]=*,product.*,product.photo&populate[seo][populate]=*&populate=logo`;
-  const populateModelsParam = `populate[vehicles][populate]=*&populate=photo`;
-
+  // HOME Model
+  const populateHomePageParam = `populate[hero][populate]=*&populate[previews][populate]=*,product.*,product.photo&populate[seo][populate]=*`;
   const resHomePage = await fetch(
     getStrapiURL(`/home-paeg?${populateHomePageParam}`)
   );
   const homePage = await resHomePage.json();
-  const resModels = await fetch(getStrapiURL(`/models?${populateModelsParam}`));
-  const models = await resModels.json();
-
-  // SEO
+  // -- SEO
   const seo = delve(homePage, "data.attributes.seo");
-
-  // Hero
+  // -- Hero
   const hero = delve(homePage, "data.attributes.hero");
   const heroImgUrl = getStrapiMedia(delve(hero, "photo.data.attributes.url"));
   const banner = delve(hero, "banner");
-  const logo = delve(homePage, "data.attributes.logo");
-  const logoImgUrl = getStrapiMedia(delve(logo, "data.attributes.url"));
 
-  // Models
+  // Models Model
+  const populateModelsParam = `populate[vehicles][populate]=*&populate=photo`;
+
+  // models request
+  const resModels = await fetch(getStrapiURL(`/models?${populateModelsParam}`));
+  const models = await resModels.json();
+  // -- Models
   const vehicleCollection = delve(models, "data")
     .map((model) => delve(model, "attributes.vehicles.data"))
     .flat()

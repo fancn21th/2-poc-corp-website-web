@@ -10,8 +10,6 @@ export default function Home({
   logoImgUrl,
   heroImgUrl,
   banner,
-  debugInfo,
-  global,
   hierarchy,
   seo,
 }) {
@@ -34,7 +32,7 @@ export default function Home({
         bannerLink={banner.link}
       />
       {/* debug */}
-      <pre>{JSON.stringify(global, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(global, null, 2)}</pre> */}
       <Products models={hierarchy} />
       <FeaturedProductPreviews />
     </>

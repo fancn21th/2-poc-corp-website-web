@@ -1,12 +1,15 @@
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import delve from "dlv";
 import Appbar from "components/shared/Appbar";
-import Hero from "components/cms/layout/Hero";
-import FeaturedProductPreviews from "components/cms/layout/FeaturedProductPreviews";
-import Products from "components/pages/home/Products";
 import { getStrapiURL, getStrapiMedia } from "utils";
 
-export default function News({ logoImgUrl }) {
+const ArticleContent = dynamic(
+  () => import("components/pages/news/ArticleContent"),
+  { ssr: false }
+);
+
+export default function News({ logoImgUrl, content }) {
   return (
     <>
       <Head>
@@ -19,6 +22,7 @@ export default function News({ logoImgUrl }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Appbar url={logoImgUrl} />
+      <ArticleContent content={content} />
     </>
   );
 }
@@ -34,7 +38,13 @@ export async function getStaticProps(context) {
     delve(global, "data.attributes.logo.data.attributes.url")
   );
 
+  // News Model
+  const newsParam = `/1`;
+  const resNews = await fetch(getStrapiURL(`/articles?${newsParam}`));
+  const news = await resNews.json();
+  const content = delve(news, "data");
+
   return {
-    props: { logoImgUrl },
+    props: { logoImgUrl, content: content[0].attributes.ckcontent },
   };
 }

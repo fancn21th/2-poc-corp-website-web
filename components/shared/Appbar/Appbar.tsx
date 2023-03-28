@@ -6,6 +6,7 @@ const AppbarWrapper = styled.nav`
   justify-content: center;
   align-items: center;
   width: 100%;
+  height: 60px;
   position: relative;
 `;
 

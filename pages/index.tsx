@@ -1,6 +1,7 @@
 import Head from "next/head";
 import delve from "dlv";
 import Appbar from "components/shared/Appbar";
+import Container from "components/shared/Container";
 import Hero from "components/cms/layout/Hero";
 import FeaturedProductPreviews from "components/cms/layout/FeaturedProductPreviews";
 import Products from "components/pages/home/Products";
@@ -14,7 +15,7 @@ export default function Home({
   seo,
 }) {
   return (
-    <>
+    <Container>
       <Head>
         <title>{seo.seoTitle}</title>
         <meta
@@ -35,7 +36,7 @@ export default function Home({
       {/* <pre>{JSON.stringify(global, null, 2)}</pre> */}
       <Products models={hierarchy} />
       <FeaturedProductPreviews />
-    </>
+    </Container>
   );
 }
 

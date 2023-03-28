@@ -3,27 +3,28 @@ import dynamic from "next/dynamic";
 import delve from "dlv";
 import Appbar from "components/shared/Appbar";
 import { getStrapiURL, getStrapiMedia } from "utils";
+import Container from "components/shared/Container";
 
 const ArticleContent = dynamic(
   () => import("components/pages/news/ArticleContent"),
   { ssr: false }
 );
 
-export default function News({ logoImgUrl, content }) {
+export default function News({ logoImgUrl, content, seo }) {
   return (
-    <>
+    <Container>
       <Head>
-        <title>{"seo.seoTitle"}</title>
+        <title>{seo.seoTitle}</title>
         <meta
           name="description"
           key="description"
-          content={"seo.seoDescription"}
+          content={seo.seoDescription}
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Appbar url={logoImgUrl} />
       <ArticleContent content={content} />
-    </>
+    </Container>
   );
 }
 
@@ -45,6 +46,13 @@ export async function getStaticProps(context) {
   const content = delve(news, "data");
 
   return {
-    props: { logoImgUrl, content: content[0].attributes.ckcontent },
+    props: {
+      logoImgUrl,
+      content: content[0].attributes.ckcontent,
+      seo: {
+        seoTitle: "",
+        seoDescription: "",
+      },
+    },
   };
 }

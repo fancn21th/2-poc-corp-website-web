@@ -3,12 +3,14 @@ import styled from "styled-components";
 
 const HeroWrapper = styled.div`
   display: flex;
+  height: 100vh;
   position: relative;
+  padding-top: 60px;
 `;
 
 const HeroImage = styled.img`
   width: 100%;
-  height: 496px;
+  height: 100%;
   object-fit: cover;
 `;
 

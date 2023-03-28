@@ -7,7 +7,9 @@ const AppbarWrapper = styled.nav`
   align-items: center;
   width: 100%;
   height: 60px;
-  position: relative;
+  position: absolute;
+  background: #fff;
+  z-index: 100;
 `;
 
 const LogoImage = styled.img`

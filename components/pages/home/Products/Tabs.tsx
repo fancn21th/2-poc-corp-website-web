@@ -16,7 +16,7 @@ const TabsWrapper = styled.div`
 const TabList = styled.ul`
   display: inline-block;
   list-style-type: none;
-  margin:
+  margin: 0;
   padding: 0;
 `;
 

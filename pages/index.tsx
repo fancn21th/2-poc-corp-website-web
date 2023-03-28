@@ -2,8 +2,8 @@ import Head from "next/head";
 import delve from "dlv";
 import Appbar from "components/shared/Appbar";
 import Container from "components/shared/Container";
+import Footer from "components/shared/Footer";
 import Hero from "components/cms/layout/Hero";
-import FeaturedProductPreviews from "components/cms/layout/FeaturedProductPreviews";
 import Products from "components/pages/home/Products";
 import { getStrapiURL, getStrapiMedia } from "utils";
 
@@ -35,7 +35,7 @@ export default function Home({
       {/* debug */}
       {/* <pre>{JSON.stringify(global, null, 2)}</pre> */}
       <Products models={hierarchy} />
-      <FeaturedProductPreviews />
+      <Footer />
     </Container>
   );
 }

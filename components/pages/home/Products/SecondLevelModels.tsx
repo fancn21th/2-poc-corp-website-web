@@ -8,7 +8,7 @@ interface TabItemProps {
 const Slider = styled.ul`
   display: flex;
   list-style-type: none;
-  margin:
+  margin: 0;
   padding: 0;
   height: 25px;
 `;

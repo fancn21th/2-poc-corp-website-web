@@ -22,7 +22,7 @@ const LogoImage = styled.img`
 const Navbar = styled.ul`
   display: flex;
   list-style-type: none;
-  margin:
+  margin: 0;
   padding: 0;
 `;
 

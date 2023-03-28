@@ -2,6 +2,7 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import delve from "dlv";
 import Appbar from "components/shared/Appbar";
+import Footer from "components/shared/Footer";
 import { getStrapiURL, getStrapiMedia } from "utils";
 import Container from "components/shared/Container";
 
@@ -24,6 +25,7 @@ export default function News({ logoImgUrl, content, seo }) {
       </Head>
       <Appbar url={logoImgUrl} />
       <ArticleContent content={content} />
+      <Footer />
     </Container>
   );
 }

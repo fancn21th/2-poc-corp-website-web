@@ -40,19 +40,17 @@ export async function getStaticProps(context) {
   );
 
   // News Model
-  const newsParam = `/1`;
-  const resNews = await fetch(getStrapiURL(`/articles?${newsParam}`));
+  const newsParam = `populate[seo][populate]=*`;
+  const resNews = await fetch(getStrapiURL(`/articles/1?${newsParam}`));
   const news = await resNews.json();
-  const content = delve(news, "data");
+  const content = delve(news, "data.attributes.ckcontent");
+  const seo = delve(news, "data.attributes.seo");
 
   return {
     props: {
       logoImgUrl,
-      content: content[0].attributes.ckcontent,
-      seo: {
-        seoTitle: "",
-        seoDescription: "",
-      },
+      content,
+      seo: seo[0],
     },
   };
 }

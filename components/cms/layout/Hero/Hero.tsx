@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
+import gsap from "gsap";
 
 const HeroWrapper = styled.div`
   display: flex;
@@ -25,10 +26,21 @@ const HeroButton = styled.a`
 `;
 
 const Hero = ({ url, alt, bannerTitle, bannerLink }) => {
+  const btn = useRef(null);
+
+  useEffect(() => {
+    gsap.from(btn.current, {
+      duration: 2,
+      opacity: 0,
+      y: 100,
+      ease: "power4.out",
+    });
+  }, []);
+
   return (
     <HeroWrapper>
       <HeroImage src={url} alt={alt} />
-      <HeroButton href={bannerLink} target="_blank">
+      <HeroButton ref={btn} href={bannerLink} target="_blank">
         {bannerTitle}
       </HeroButton>
     </HeroWrapper>

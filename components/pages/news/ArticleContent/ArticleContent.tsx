@@ -9,17 +9,28 @@ const ArticleContentWrapper = styled.div`
   padding-top: 60px;
 `;
 
+const StyledCKEditor = styled.div`
+  width: 66.6666666667%;
+  margin: 0 auto;
+
+  * {
+    border-color: white !important;
+  }
+`;
+
 function ArticleContent({ content }) {
   return (
     <ArticleContentWrapper>
-      <CKEditor
-        editor={ClassicEditor}
-        onReady={(editor) => {
-          editor.ui.view.toolbar.element.remove();
-        }}
-        data={content.replaceAll("/uploads", getStrapiMedia(`/uploads`))}
-        disabled={true}
-      />
+      <StyledCKEditor>
+        <CKEditor
+          editor={ClassicEditor}
+          onReady={(editor) => {
+            editor.ui.view.toolbar.element.remove();
+          }}
+          data={content.replaceAll("/uploads", getStrapiMedia(`/uploads`))}
+          disabled={true}
+        />
+      </StyledCKEditor>
     </ArticleContentWrapper>
   );
 }
